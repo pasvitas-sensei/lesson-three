@@ -1,0 +1,78 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1711795212015-1
+      author: pasvitas (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 1
+            sequenceName: item_id_seq
+            startValue: 1
+  - changeSet:
+      id: 1711795212015-2
+      author: pasvitas (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createSequence:
+            incrementBy: 1
+            sequenceName: order_id_seq
+            startValue: 1
+  - changeSet:
+      id: 1711795212015-3
+      author: pasvitas (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_items
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: name
+                  type: VARCHAR(512)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: price
+                  type: INT
+            tableName: items
+  - changeSet:
+      id: 1711795212015-4
+      author: pasvitas (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_orders
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: item_id
+                  type: BIGINT
+              - column:
+                  name: address
+                  type: VARCHAR(255)
+              - column:
+                  name: order_date
+                  type: DATETIME
+            tableName: orders
+  - changeSet:
+      id: 1711795212015-5
+      author: pasvitas (generated)
+      objectQuotingStrategy: QUOTE_ONLY_RESERVED_WORDS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: item_id
+            baseTableName: orders
+            constraintName: FK_ORDERS_ON_ITEM
+            referencedColumnNames: id
+            referencedTableName: items
+
