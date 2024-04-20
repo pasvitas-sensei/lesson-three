@@ -8,11 +8,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.pasvitas.teaching.lessonThree.controller.requests.OrderRequest;
 import ru.pasvitas.teaching.lessonThree.exceptions.ItemNotFoundException;
 import ru.pasvitas.teaching.lessonThree.model.Item;
 import ru.pasvitas.teaching.lessonThree.model.Order;
+import ru.pasvitas.teaching.lessonThree.model.User;
 import ru.pasvitas.teaching.lessonThree.repository.OrderRepository;
 
 @Service
@@ -30,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
                     new Order(
                             null,
                             item.get(),
+                            (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
                             order.getAddress(),
                             new Date()
                     )
