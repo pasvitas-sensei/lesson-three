@@ -1,5 +1,6 @@
 package ru.pasvitas.teaching.lessonThree.controller;
 
+import feign.Response;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.pasvitas.teaching.lessonThree.api.VisitorClient;
 import ru.pasvitas.teaching.lessonThree.api.responses.Visitor;
 import ru.pasvitas.teaching.lessonThree.model.Item;
+import ru.pasvitas.teaching.lessonThree.model.ItemWithCount;
+import ru.pasvitas.teaching.lessonThree.repository.ItemRepository;
 import ru.pasvitas.teaching.lessonThree.service.ItemService;
 
 @RequiredArgsConstructor
@@ -24,6 +27,8 @@ import ru.pasvitas.teaching.lessonThree.service.ItemService;
 public class ItemController {
 
     private final VisitorClient visitorClient;
+
+    private final ItemRepository itemRepository;
 
     private final ItemService itemService;
 
@@ -48,6 +53,11 @@ public class ItemController {
             log.error("Cann't get visitor service: {}", e.getMessage(), e);
         }
         return ResponseEntity.ok(itemService.getAllItems());
+    }
+
+    @GetMapping("/topItems")
+    public ResponseEntity<List<ItemWithCount>> getTopItems() {
+        return ResponseEntity.ok(itemRepository.findTopItems());
     }
 
 }
