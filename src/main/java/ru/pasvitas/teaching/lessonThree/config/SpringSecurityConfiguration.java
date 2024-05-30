@@ -22,11 +22,7 @@ public class SpringSecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(expressionInterceptUrlRegistry ->
                         expressionInterceptUrlRegistry
-                                .requestMatchers("/registration", "/login", "/items/topItems").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/orders").hasAuthority(UserAuthority.PLACE_ORDERS.getAuthority())
-                                .requestMatchers(HttpMethod.GET, "/orders/**").hasAuthority(UserAuthority.MANAGE_ORDERS.getAuthority())
-                                .requestMatchers(HttpMethod.POST, "/items").hasAuthority(UserAuthority.MANAGE_ORDERS.getAuthority())
-                                .anyRequest().hasAuthority(UserAuthority.FULL.getAuthority()))
+                                .anyRequest().permitAll())
                 .formLogin(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable);
 

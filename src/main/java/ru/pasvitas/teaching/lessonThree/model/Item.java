@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +19,7 @@ import lombok.Setter;
 @Setter
 @Table(name = "items")
 @Entity
+@ToString
 public class Item {
 
     @Id

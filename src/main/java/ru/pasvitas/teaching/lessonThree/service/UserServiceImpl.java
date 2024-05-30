@@ -1,7 +1,7 @@
 package ru.pasvitas.teaching.lessonThree.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRolesRepository userRolesRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EntityManager manager;
 
     @Override
     public void registration(String username, String password) {
@@ -36,8 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                             .setEnabled(true)
             );
             userRolesRepository.save(new UserRole(null, UserAuthority.PLACE_ORDERS, user));
-        }
-        else {
+        } else {
             throw new UsernameAlreadyExistsException();
         }
     }
